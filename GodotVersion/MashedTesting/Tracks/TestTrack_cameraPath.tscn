@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Materials/Prototype_spatialmaterial.tres" type="Material" id=2]
+[ext_resource path="res://Materials/Prototype2_spatialmaterial.tres" type="Material" id=3]
+
+[node name="TestTrack_CameraPath" type="Spatial"]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
+width = 100.0
+height = 6.0
+depth = 200.0
+material = ExtResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+operation = 2
+width = 90.0
+height = 4.0
+depth = 180.0
+material = ExtResource( 2 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+width = 20.0
+height = 5.0
+depth = 130.0
+material = ExtResource( 3 )

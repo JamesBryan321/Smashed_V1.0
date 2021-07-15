@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Cars/SM_Veh_Classic_01.fbx" type="PackedScene" id=1]
+[ext_resource path="res://CarsTests/CarExample_Sphere.gd" type="Script" id=2]
+[ext_resource path="res://Materials/SM_Veh_Classic_01_Material.tres" type="Material" id=3]
+
+[sub_resource type="PhysicsMaterial" id=1]
+rough = true
+bounce = 0.1
+
+[sub_resource type="SphereShape" id=2]
+radius = 1.5
+
+[node name="CarExample_Sphere" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Ball" type="RigidBody" parent="."]
+physics_material_override = SubResource( 1 )
+gravity_scale = 10.0
+angular_damp = 5.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+shape = SubResource( 2 )
+
+[node name="TestCar" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+
+[node name="RootNode" parent="TestCar" index="0"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
+
+[node name="SM_Veh_Classic_01" parent="TestCar/RootNode" index="0"]
+material/0 = ExtResource( 3 )
+
+[node name="RayCast" type="RayCast" parent="TestCar"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.254438, 0 )
+enabled = true
+
+[editable path="TestCar"]

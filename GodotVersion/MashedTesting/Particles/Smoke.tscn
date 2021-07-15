@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.317829, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.92549, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0.320042 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.779772 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 2
+emission_box_extents = Vector3( 0.2, 0.2, 0.2 )
+spread = 0.0
+gravity = Vector3( 0, 1, 0 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id=7]
+material = SubResource( 6 )
+
+[node name="Smoke" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.497032, 0.337662 )
+amount = 10
+lifetime = 0.4
+speed_scale = 1.6
+local_coords = false
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 7 )
