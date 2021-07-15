@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://CarsTests/CarExample_VehicleBody.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tracks/TestTrack_cameraPath.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Camera.gd" type="Script" id=3]
 [ext_resource path="res://CameraStuff/PathFollow.gd" type="Script" id=4]
+[ext_resource path="res://Materials/Prototype_spatialmaterial.tres" type="Material" id=5]
+[ext_resource path="res://Materials/Prototype2_spatialmaterial.tres" type="Material" id=6]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
@@ -17,6 +19,22 @@ size = Vector3( 6, 2, 2 )
 [sub_resource type="SphereMesh" id=3]
 radius = 0.5
 height = 1.0
+
+[sub_resource type="PhysicsMaterial" id=4]
+
+[sub_resource type="ConcavePolygonShape" id=5]
+data = PoolVector3Array( -50, 1, 100, 50, 1, 100, -50, -1, 100, 50, 1, 100, 50, -1, 100, -50, -1, 100, 50, 1, -100, -50, 1, -100, 50, -1, -100, -50, 1, -100, -50, -1, -100, 50, -1, -100, 50, 1, 100, 50, 1, -100, 50, -1, 100, 50, 1, -100, 50, -1, -100, 50, -1, 100, -50, 1, -100, -50, 1, 100, -50, -1, -100, -50, 1, 100, -50, -1, 100, -50, -1, -100, 50, 1, 100, -50, 1, 100, 50, 1, -100, -50, 1, 100, -50, 1, -100, 50, 1, -100, -50, -1, 100, 50, -1, 100, -50, -1, -100, 50, -1, 100, 50, -1, -100, -50, -1, -100 )
+
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 5 )
+size = Vector3( 100, 2, 200 )
+
+[sub_resource type="ConcavePolygonShape" id=7]
+data = PoolVector3Array( -10, 3, 75, 10, 3, 75, -10, -3, 75, 10, 3, 75, 10, -3, 75, -10, -3, 75, 10, 3, -75, -10, 3, -75, 10, -3, -75, -10, 3, -75, -10, -3, -75, 10, -3, -75, 10, 3, 75, 10, 3, -75, 10, -3, 75, 10, 3, -75, 10, -3, -75, 10, -3, 75, -10, 3, -75, -10, 3, 75, -10, -3, -75, -10, 3, 75, -10, -3, 75, -10, -3, -75, 10, 3, 75, -10, 3, 75, 10, 3, -75, -10, 3, 75, -10, 3, -75, 10, 3, -75, -10, -3, 75, 10, -3, 75, -10, -3, -75, 10, -3, 75, 10, -3, -75, -10, -3, -75 )
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 6 )
+size = Vector3( 20, 6, 150 )
 
 [node name="TestLevel_CameraPath" type="Spatial"]
 
@@ -52,5 +70,29 @@ offset = Vector3( 0, 12, 15 )
 
 [node name="CarExample_VehicleBody" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9819, 1.57546, -36.187 )
-backwheel_friction = 9.0
+takeoff_power = 400
+steer_speed = 10
+frontwheel_friction = 100.0
+backwheel_friction = 100.0
 avel_to_smoke = 3
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22.9711, 0 )
+physics_material_override = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22.1347, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
+shape = SubResource( 7 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="StaticBody2"]
+mesh = SubResource( 8 )
+material/0 = null

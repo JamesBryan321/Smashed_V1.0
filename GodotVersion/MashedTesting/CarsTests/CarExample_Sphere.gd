@@ -6,8 +6,8 @@ onready var ball = $Ball
 onready var car_mesh = $TestCar
 onready var ground_ray = $TestCar/RayCast
 # mesh references
-onready var right_wheel = $TestCar/RootNode/SM_Veh_Classic_01/SM_Veh_Classic_01_Wheel_fr
-onready var left_wheel = $TestCar/RootNode/SM_Veh_Classic_01/SM_Veh_Classic_01_Wheel_fl
+onready var right_wheel = $TestCar/RootNode/SM_Veh_Classic_01_Wheel_fr
+onready var left_wheel = $TestCar/RootNode/SM_Veh_Classic_01_Wheel_fl
 onready var body_mesh = $TestCar/RootNode/SM_Veh_Classic_01
 
 # Where to place the car mesh relative to the sphere
@@ -55,8 +55,8 @@ func _process(delta):
 	rotate_input *= deg2rad(steering)
 	
 	# rotate wheels for effect
-	#right_wheel.rotation.y = rotate_input
-	#left_wheel.rotation.y = rotate_input
+	right_wheel.rotation.y = rotate_input
+	left_wheel.rotation.y = rotate_input
 		
 	# rotate car mesh
 	if ball.linear_velocity.length() > turn_stop_limit:
@@ -65,8 +65,8 @@ func _process(delta):
 		car_mesh.global_transform = car_mesh.global_transform.orthonormalized()
 		
 		# tilt body for effect
-		var t = -rotate_input * ball.linear_velocity.length() / body_tilt
-		body_mesh.rotation.z = lerp(body_mesh.rotation.z,t,10 * delta)
+#		var t = -rotate_input * ball.linear_velocity.length() / body_tilt
+#		body_mesh.rotation.z = lerp(body_mesh.rotation.z,t,10 * delta)
 	
 	# align with ground
 	var n = ground_ray.get_collision_normal()
